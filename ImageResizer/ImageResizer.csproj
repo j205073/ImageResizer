@@ -53,6 +53,7 @@
     <None Include="images\__credits.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\4o2vwgYTMkM.jpg">
@@ -115,6 +116,10 @@
     <Content Include="images\x_G5TJZQF1A.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\AsyncFixer.1.1.6\analyzers\dotnet\cs\AsyncFixer.dll" />
+    <Analyzer Include="..\packages\AsyncMethodNameFixer.2.0.1\analyzers\dotnet\cs\AsyncMethodNameFixer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
