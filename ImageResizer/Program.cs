@@ -38,6 +38,7 @@ namespace ImageResizer
                             break;
 
                         case ProcessStyle.NewStyle:
+                            //imageProcess.ResizeImagesAsync(sourcePath, destinationPath, 2.0);
                             Task.Run(async () =>
                             {
                                 await imageProcess.ResizeImagesAsync(sourcePath, destinationPath, 2.0);
@@ -62,7 +63,7 @@ namespace ImageResizer
             var oldSum = (decimal)process[ProcessStyle.OldStyle].Values.Sum();
             var newSum = (decimal)process[ProcessStyle.NewStyle].Values.Sum();
 
-            var percentage = (oldSum - newSum) / newSum;
+            var percentage = (oldSum - newSum) / oldSum;
             Console.WriteLine($"總提升{String.Format("{0:P2}.", percentage)}");
             Console.ReadKey();
 
