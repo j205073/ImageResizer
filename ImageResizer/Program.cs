@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ImageResizer
@@ -16,12 +17,26 @@ namespace ImageResizer
     {
         private static void Main(string[] args)
         {
+            var cts = new CancellationTokenSource();
+            ThreadPool.QueueUserWorkItem(x =>
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
+                if (key.Key == ConsoleKey.C)
+                {
+                    cts.Cancel();
+                }
+            });
+
+
             Dictionary<ProcessStyle, Dictionary<int, long>> process = new Dictionary<ProcessStyle, Dictionary<int, long>>();
 
             foreach (ProcessStyle p in Enum.GetValues(typeof(ProcessStyle)))
             {
+                //if (p == ProcessStyle.OldStyle)
+                //    continue;
+
                 Dictionary<int, long> times = new Dictionary<int, long>();
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     string sourcePath = Path.Combine(Environment.CurrentDirectory, "images");
                     string destinationPath = Path.Combine(Environment.CurrentDirectory, "output"); ;
@@ -38,6 +53,7 @@ namespace ImageResizer
                             break;
 
                         case ProcessStyle.NewStyle:
+
                             //imageProcess.ResizeImagesAsync(sourcePath, destinationPath, 2.0);
                             Task.Run(async () =>
                             {
